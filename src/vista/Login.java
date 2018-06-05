@@ -11,6 +11,8 @@ import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import proyectopepita.ProyectoPepita;
+import static proyectopepita.ProyectoPepita.usuarioLogeado;
 
 /**
  *
@@ -41,7 +43,7 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jtfUsuario = new javax.swing.JTextField();
+        jtfEmail = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jbLogin = new javax.swing.JButton();
@@ -66,20 +68,21 @@ public class Login extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(12, 204, 144));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 3));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jtfUsuario.setBackground(new java.awt.Color(12, 204, 144));
-        jtfUsuario.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jtfUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        jtfUsuario.setToolTipText("");
-        jtfUsuario.setBorder(null);
-        jtfUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+        jtfEmail.setBackground(new java.awt.Color(255, 255, 255));
+        jtfEmail.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jtfEmail.setForeground(new java.awt.Color(0, 0, 0));
+        jtfEmail.setToolTipText("");
+        jtfEmail.setBorder(null);
+        jtfEmail.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jtfUsuarioKeyPressed(evt);
+                jtfEmailKeyPressed(evt);
             }
         });
-        jPanel2.add(jtfUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 160, 20));
+        jPanel2.add(jtfEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 200, 20));
 
         jLabel1.setBackground(new java.awt.Color(12, 112, 84));
         jLabel1.setForeground(new java.awt.Color(12, 112, 84));
@@ -114,21 +117,21 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel2.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, 20));
 
-        jfPassword.setBackground(new java.awt.Color(12, 204, 144));
-        jfPassword.setForeground(new java.awt.Color(255, 255, 255));
+        jfPassword.setBackground(new java.awt.Color(255, 255, 255));
+        jfPassword.setForeground(new java.awt.Color(0, 0, 0));
         jfPassword.setBorder(null);
         jfPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jfPasswordKeyPressed(evt);
             }
         });
-        jPanel2.add(jfPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 160, -1));
+        jPanel2.add(jfPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 170, 20));
 
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Username:");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 70, -1));
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Email: ");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 40, -1));
 
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Password:");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 70, -1));
 
@@ -156,27 +159,28 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jfPasswordKeyPressed
 
-    private void jtfUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfUsuarioKeyPressed
+    private void jtfEmailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfEmailKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             login();
         }
-    }//GEN-LAST:event_jtfUsuarioKeyPressed
+    }//GEN-LAST:event_jtfEmailKeyPressed
 
     public void login() {
-        String username = jtfUsuario.getText();
+        String email = jtfEmail.getText();
         char[] arrayC = jfPassword.getPassword();
         String password = new String(arrayC);
         try {
-            if (username.equals("") || password.equals("")) {
+            if (email.equals("") || password.equals("")) {
                 showErrorMessage("Debes introducir datos");
-            } else if (pepitaDAO.validateUser(username, password)) {
-                if (pepitaDAO.getTypeUser(username) == 0) {
+            } else if (pepitaDAO.validateUser(email, password)) {
+                if (pepitaDAO.getTypeEmail(email) == 0) {
                     pepitaDAO.closeConection();
+                    usuarioLogeado = email;
                     this.setVisible(false);
                     HomeAdmin h = new HomeAdmin();
                     h.setLocationRelativeTo(null);
                     h.setVisible(true);
-                } else if (pepitaDAO.getTypeUser(username) == 1) {
+                } else if (pepitaDAO.getTypeEmail(email) == 1) {
                     pepitaDAO.closeConection();
                     this.setVisible(false);
                     HomeProfe h = new HomeProfe();
@@ -245,7 +249,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton jbLogin;
     private javax.swing.JPasswordField jfPassword;
-    private javax.swing.JTextField jtfUsuario;
+    private javax.swing.JTextField jtfEmail;
     // End of variables declaration//GEN-END:variables
 
  

@@ -5,16 +5,35 @@
  */
 package vista;
 
+import dao.PepitaDAO;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import model.Asignatura;
+import static proyectopepita.ProyectoPepita.usuarioLogeado;
+
 /**
  *
  * @author chen
  */
 public class HomeProfe extends javax.swing.JFrame {
 
+    PepitaDAO pepitaDAO = new PepitaDAO();
+    
+
     /**
      * Creates new form HomeProfe
      */
-    public HomeProfe() {
+    public HomeProfe() throws SQLException {
+        pepitaDAO.conectToBBDD();
+        DefaultListModel dml = new DefaultListModel();
+        List<Asignatura> listaAsignatura = pepitaDAO.listAsignaturaByProfesor(usuarioLogeado);
+        for(Asignatura a : listaAsignatura){
+            dml.addElement(a.getNombre());
+        }
+        jlistAsignatura.setModel(dml);
         initComponents();
     }
 
@@ -27,40 +46,39 @@ public class HomeProfe extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        menu3 = new javax.swing.JPanel();
-        jbAltaProfesor3 = new javax.swing.JButton();
-        jbAltaAlumnos3 = new javax.swing.JButton();
-        jlPerfil3 = new javax.swing.JLabel();
-        jlClose3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listAsignatura = new javax.swing.JList<>();
+        jlistAsignatura = new javax.swing.JList<>();
+        jbAltaProfesor3 = new javax.swing.JButton();
+        jlClose3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        menu3.setBackground(new java.awt.Color(12, 204, 144));
-        menu3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jlistAsignatura.setBackground(new java.awt.Color(255, 255, 255));
+        jlistAsignatura.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jlistAsignatura.setForeground(new java.awt.Color(0, 0, 0));
+        jlistAsignatura.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jlistAsignatura.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlistAsignaturaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jlistAsignatura);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 920, 370));
 
         jbAltaProfesor3.setBackground(new java.awt.Color(155, 236, 164));
-        jbAltaProfesor3.setForeground(new java.awt.Color(102, 102, 102));
-        jbAltaProfesor3.setText("Lista");
+        jbAltaProfesor3.setForeground(new java.awt.Color(255, 255, 255));
+        jbAltaProfesor3.setText("Asignaturas");
         jbAltaProfesor3.setBorder(null);
         jbAltaProfesor3.setBorderPainted(false);
         jbAltaProfesor3.setFocusable(false);
-        menu3.add(jbAltaProfesor3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 110, 30));
-
-        jbAltaAlumnos3.setBackground(new java.awt.Color(155, 236, 164));
-        jbAltaAlumnos3.setForeground(new java.awt.Color(102, 102, 102));
-        jbAltaAlumnos3.setText("Nota");
-        jbAltaAlumnos3.setBorder(null);
-        jbAltaAlumnos3.setBorderPainted(false);
-        jbAltaAlumnos3.setFocusable(false);
-        menu3.add(jbAltaAlumnos3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, 110, 30));
-
-        jlPerfil3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_User_Male_48px_2.png"))); // NOI18N
-        menu3.add(jlPerfil3, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 30, -1, -1));
+        jPanel1.add(jbAltaProfesor3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 140, 30));
 
         jlClose3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_Close_Window_20px_1.png"))); // NOI18N
         jlClose3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -68,32 +86,9 @@ public class HomeProfe extends javax.swing.JFrame {
                 jlClose3MouseClicked(evt);
             }
         });
-        menu3.add(jlClose3, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 10, -1, 20));
+        jPanel1.add(jlClose3, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 20, -1, -1));
 
-        getContentPane().add(menu3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 100));
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        listAsignatura.setBackground(new java.awt.Color(255, 255, 255));
-        listAsignatura.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        listAsignatura.setForeground(new java.awt.Color(0, 0, 0));
-        listAsignatura.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "IOS", "Programacion", "Sistema", "Diseño", " " };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        listAsignatura.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listAsignatura.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listAsignaturaMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(listAsignatura);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 520, 330));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1000, 400));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -102,13 +97,13 @@ public class HomeProfe extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jlClose3MouseClicked
 
-    private void listAsignaturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listAsignaturaMouseClicked
-        String asignatura = listAsignatura.getSelectedValue();
+    private void jlistAsignaturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlistAsignaturaMouseClicked
+        String asignatura = jlistAsignatura.getSelectedValue();
         NotaAlumno n = new NotaAlumno(this, rootPaneCheckingEnabled, asignatura);
         n.setLocationRelativeTo(null);
         n.setVisible(true);
 
-    }//GEN-LAST:event_listAsignaturaMouseClicked
+    }//GEN-LAST:event_jlistAsignaturaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -140,7 +135,11 @@ public class HomeProfe extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HomeProfe().setVisible(true);
+                try {
+                    new HomeProfe().setVisible(true);
+                } catch (SQLException ex) {
+                      System.out.println(ex);
+                }
             }
         });
     }
@@ -148,26 +147,8 @@ public class HomeProfe extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton jbAltaAlumnos;
-    private javax.swing.JButton jbAltaAlumnos1;
-    private javax.swing.JButton jbAltaAlumnos2;
-    private javax.swing.JButton jbAltaAlumnos3;
-    private javax.swing.JButton jbAltaProfesor;
-    private javax.swing.JButton jbAltaProfesor1;
-    private javax.swing.JButton jbAltaProfesor2;
     private javax.swing.JButton jbAltaProfesor3;
-    private javax.swing.JLabel jlClose;
-    private javax.swing.JLabel jlClose1;
-    private javax.swing.JLabel jlClose2;
     private javax.swing.JLabel jlClose3;
-    private javax.swing.JLabel jlPerfil;
-    private javax.swing.JLabel jlPerfil1;
-    private javax.swing.JLabel jlPerfil2;
-    private javax.swing.JLabel jlPerfil3;
-    private javax.swing.JList<String> listAsignatura;
-    private javax.swing.JPanel menu;
-    private javax.swing.JPanel menu1;
-    private javax.swing.JPanel menu2;
-    private javax.swing.JPanel menu3;
+    private javax.swing.JList<String> jlistAsignatura;
     // End of variables declaration//GEN-END:variables
 }

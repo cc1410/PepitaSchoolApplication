@@ -36,6 +36,8 @@ public class ProyectoPepita {
      * @throws java.sql.SQLException
      * @throws java.lang.ClassNotFoundException
      */
+    public static String usuarioLogeado;
+
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
 //        Login l = new Login();
 //        l.setLocationRelativeTo(null);
@@ -55,37 +57,37 @@ public class ProyectoPepita {
         PepitaDAO pepitaDAO = new PepitaDAO();
         pepitaDAO.conectToBBDD();
         //    pepitaDAO.crearTable();
-        pepitaDAO.deleteTable();
+//        pepitaDAO.deleteTable();
 
-//        Login l = new Login();
-//        l.setLocationRelativeTo(null);
-//        l.setVisible(true);
+        Login l = new Login();
+        l.setLocationRelativeTo(null);
+        l.setVisible(true);
 //        
-        ConectMySQL conect = new ConectMySQL();
-        conect.conectar();
-        List<Usuario> data = conect.getAllDataUser();
-        List<Curso> dataCurso = conect.getAllDataCurso();
-        List<Asignatura> dataAsignatura = conect.getAllDataAsignatura();
-        List<Clase> dataClase = conect.getAllDataClase();
-        List<Alumno> dataAlumno = conect.getAllDataAlumno();
-        List<Expediente> dataExpedientes = conect.getAllDataExepediente();
-        List<ClaseEvento> dataClaseEventos = conect.getAllDataClaseEvento();
-        List<EventoCalendario> dataEventoCalendarios = conect.getAllDataEventoCalendario();
-        List<AsignaturaMatricula> dataAsignaturaMatriculas = conect.getAllDataAsignaturaMatriculas();
-        List<Nota> dataNotas = conect.getAllDataNota();
-
-         pepitaDAO.conectToBBDD();
-         pepitaDAO.insertUserToSqlite(data);
-        pepitaDAO.insertCursoToSqlite(dataCurso);
-        pepitaDAO.insertAsignaturaToSqlite(dataAsignatura);
-        pepitaDAO.insertClaseToSqlite(dataClase);
-        pepitaDAO.insertAlumnoToSqlite(dataAlumno);
-        pepitaDAO.insertExpedienteToSqlite(dataExpedientes);
-        pepitaDAO.insertClaseEventoToSqlite(dataClaseEventos);
-        pepitaDAO.insertEventoCalendarioToSqlite(dataEventoCalendarios);
-        pepitaDAO.insertAsignaturaMatricularToSqlite(dataAsignaturaMatriculas);
-        pepitaDAO.insertNotaToSqlite(dataNotas);
-        pepitaDAO.closeConection();
+//        ConectMySQL conect = new ConectMySQL();
+//        conect.conectar();
+//        List<Usuario> data = conect.getAllDataUser();
+//        List<Curso> dataCurso = conect.getAllDataCurso();
+//        List<Asignatura> dataAsignatura = conect.getAllDataAsignatura();
+//        List<Clase> dataClase = conect.getAllDataClase();
+//        List<Alumno> dataAlumno = conect.getAllDataAlumno();
+//        List<Expediente> dataExpedientes = conect.getAllDataExepediente();
+//        List<ClaseEvento> dataClaseEventos = conect.getAllDataClaseEvento();
+//        List<EventoCalendario> dataEventoCalendarios = conect.getAllDataEventoCalendario();
+//        List<AsignaturaMatricula> dataAsignaturaMatriculas = conect.getAllDataAsignaturaMatriculas();
+//        List<Nota> dataNotas = conect.getAllDataNota();
+//
+//         pepitaDAO.conectToBBDD();
+//         pepitaDAO.insertUserToSqlite(data);
+//        pepitaDAO.insertCursoToSqlite(dataCurso);
+//        pepitaDAO.insertAsignaturaToSqlite(dataAsignatura);
+//        pepitaDAO.insertClaseToSqlite(dataClase);
+//        pepitaDAO.insertAlumnoToSqlite(dataAlumno);
+//        pepitaDAO.insertExpedienteToSqlite(dataExpedientes);
+//        pepitaDAO.insertClaseEventoToSqlite(dataClaseEventos);
+//        pepitaDAO.insertEventoCalendarioToSqlite(dataEventoCalendarios);
+//        pepitaDAO.insertAsignaturaMatricularToSqlite(dataAsignaturaMatriculas);
+//        pepitaDAO.insertNotaToSqlite(dataNotas);
+//        pepitaDAO.closeConection();
 //        conect.exportarDatos();
 //        
         /* Connection connection = null;

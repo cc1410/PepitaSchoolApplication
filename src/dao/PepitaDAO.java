@@ -56,15 +56,15 @@ public class PepitaDAO {
         st.executeUpdate("insert into subject values(null, '" + name + "')");
     }
 
-    public int getTypeUser(String username) throws SQLException {
+    public int getTypeEmail(String email) throws SQLException {
         Statement st = connection.createStatement();
-        ResultSet rs = st.executeQuery("select type from user where username = '" + username + "'");
+        ResultSet rs = st.executeQuery("select type from users where mail = '" + email + "'");
         return rs.getInt("type");
     }
 
-    public boolean existUser(String username) throws SQLException {
+    public boolean existUser(String email) throws SQLException {
         Statement st = connection.createStatement();
-        ResultSet rs = st.executeQuery("select * from user where username = '" + username + "'");
+        ResultSet rs = st.executeQuery("select * from users where mail = '" + email + "'");
         boolean exist = false;
         if (rs.next()) {
             exist = true;
@@ -72,10 +72,10 @@ public class PepitaDAO {
         return exist;
     }
 
-    public boolean validateUser(String username, String password) throws SQLException {
+    public boolean validateUser(String email, String password) throws SQLException {
         boolean login = false;
         Statement st = connection.createStatement();
-        ResultSet rs = st.executeQuery("select * from user where name = '" + username + "' and password = '" + password + "'");
+        ResultSet rs = st.executeQuery("select * from users where mail = '" + email + "' and password = '" + password + "'");
         if (rs.next()) {
             login = true;
         }
@@ -98,6 +98,7 @@ public class PepitaDAO {
         while (rs.next()) {
             Asignatura u = new Asignatura();
             u.setNombre(rs.getString("nombre"));
+            u.setCurso(new Curso(rs.getString("curso")));
             listAux.add(u);
         }
         rs.close();
@@ -227,7 +228,7 @@ public class PepitaDAO {
         Statement st = connection.createStatement();
         for (Asignatura a : data) {
             st.executeUpdate("insert into asignatura values('" + a.getNombre() + "', '" + a.getCurso().getNombre() + "')");
-        } 
+        }
     }
 
     public void insertClaseToSqlite(List<Clase> data) throws SQLException {
